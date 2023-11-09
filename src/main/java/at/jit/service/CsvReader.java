@@ -4,9 +4,10 @@ import at.jit.constants.Converter;
 import at.jit.constants.DmnDataTypes;
 import at.jit.entity.CsvPojo;
 import at.jit.entity.InvalidDatatypeException;
-import com.opencsv.CSVReader;
+import com.opencsv.*;
+import org.apache.commons.io.input.BOMInputStream;
 
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public class CsvReader {
     public CsvPojo readCsv(String path) {
         CsvPojo csvPojo = new CsvPojo();
 
-        try (CSVReader reader = new CSVReader(new FileReader(path))) {
+        try (CSVReader reader = new CSVReaderBuilder(new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(path)))))
+                .withCSVParser(new CSVParserBuilder().withSeparator(';').build()).build()) {
             List<String[]> csv = reader.readAll();
             firstLineToPojo(csvPojo, csv.get(0));
             setInOutEnd(csv.get(1));
