@@ -141,9 +141,9 @@ public class DmnToCsvConverter {
         try (
                 Writer writer = Files.newBufferedWriter(Paths.get(csv));
                 CSVWriter csvWriter = new CSVWriter(writer,
-                        CSVWriter.DEFAULT_SEPARATOR,
+                        ';',
                         CSVWriter.NO_QUOTE_CHARACTER,
-                        CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                        '\\',
                         CSVWriter.DEFAULT_LINE_END);
         ) {
             csvData.forEach(line -> csvWriter.writeNext(line.stream().toArray(String[]::new), false));

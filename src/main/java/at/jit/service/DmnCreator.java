@@ -132,7 +132,14 @@ public class DmnCreator {
             final String curDataType = inDataTypes.get(i);
             if (curDataType.equals(DmnDataTypes.STRING.value())) {
                 if (!StringUtils.isBlank(inRowText)) {
-                    inputText.setTextContent(format("\"%s\"", inRowText));
+                    if (StringUtils.contains(inRowText, ',')) {
+                        inputText.setTextContent(format("\"%s\"",
+                                StringUtils.join(
+                                        inRowText.split("\\s*,\\s*"),
+                                        "\",\"")));
+                    } else {
+                        inputText.setTextContent(format("\"%s\"", inRowText));
+                    }
                 } else {
                     inputText.setTextContent("");
                 }
