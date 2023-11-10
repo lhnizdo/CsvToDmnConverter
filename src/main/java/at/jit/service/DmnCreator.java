@@ -94,7 +94,7 @@ public class DmnCreator {
             inputExpression.setId(Converter.INPUT_EXPRESSION_ID + sequenceGenerator.getNext());
             inputExpression.setTypeRef(dataTypes.get(i));
             Text text = modelInstance.newInstance(Text.class);
-            text.setTextContent(labelVariables.get(i));
+            text.setTextContent(labels.get(i));
             inputExpression.addChildElement(text);
             input.addChildElement(inputExpression);
             decisionTable.addChildElement(input);
